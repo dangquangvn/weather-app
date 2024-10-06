@@ -10,7 +10,7 @@ function App() {
   const { loading } = useSearch()
   return (
     <div className="relative min-h-screen w-screen bg-[url('./assets/bg-light.png')] bg-cover bg-center dark:bg-[url('./assets/bg-dark.png')]">
-      <div className='container mx-auto flex min-h-screen flex-col items-center space-y-20 px-4 pt-4'>
+      <div className='container mx-auto flex min-h-screen flex-col items-center space-y-20 px-4 pt-4 md:space-y-28'>
         {/* SEARCH BAR */}
         <div className='w-full max-w-2xl'>
           <SearchBar />

@@ -15,24 +15,28 @@ const WeatherDisplay: React.FC = () => {
       <div className='weather__text flex flex-col'>
         <p className='mb-2 font-semibold text-gray-700 dark:text-gray-300'>Today's Weather</p>
 
-        <p className='text-8xl font-bold leading-none text-purple-800 dark:text-gray-300'>
+        <p className='text-6xl font-bold leading-none text-purple-800 md:text-8xl dark:text-gray-300'>
           {weatherData.temperature}&deg;
         </p>
 
-        <p className='text-md mb-2 text-gray-700 dark:text-gray-300'>
-          <span>H: {weatherData.temperature + 3}&deg;</span> <span>L: {weatherData.temperature - 3}&deg;</span>
+        <p className='text-md mb-0 text-gray-700 md:mb-2 dark:text-gray-300'>
+          <span>H: {weatherData.temperature_max}&deg;</span> <span>L: {weatherData.temperature_min}&deg;</span>
         </p>
 
-        <div className='weather_description flex w-full items-center justify-between text-lg text-gray-600 dark:text-gray-300'>
-          <div className='text-md font-semibold text-gray-600 dark:text-gray-300'>{weatherData.location}</div>
-          <span>{weatherData.date}</span>
-          <span>Humidity: {weatherData.humidity}%</span>
-          <span>{weatherData.weatherType}</span>
+        <div className='weather_description flex w-full items-end justify-between text-lg text-gray-600 md:items-center dark:text-gray-300'>
+          <div className='md:text-md w-[50%] text-sm font-semibold text-gray-600 md:w-[25%] dark:text-gray-300'>
+            {weatherData.location}
+          </div>
+          <div className='md:text-md -mt-[10%] flex w-[50%] flex-col-reverse items-end justify-between text-sm md:mt-0 md:w-[75%] md:flex-row md:items-center'>
+            <span>{weatherData.date}</span>
+            <span>Humidity: {weatherData.humidity}%</span>
+            <span>{weatherData.weatherType}</span>
+          </div>
         </div>
       </div>
 
       {/* Right Section with Sun/Cloud Image */}
-      <div className='weather__img absolute -right-[5%] -top-[65%] h-72 w-72'>
+      <div className='weather__img absolute -right-[5%] -top-[55%] h-40 w-40 md:-top-[65%] md:h-72 md:w-72'>
         <img src={sunImage} alt='Sun and Clouds' className='h-full w-full object-contain' />
       </div>
     </div>

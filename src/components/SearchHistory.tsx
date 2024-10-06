@@ -9,12 +9,14 @@ const SearchHistory: React.FC = () => {
 
   return (
     <div className='rounded-3xl bg-white bg-opacity-10 p-6 shadow-md backdrop-blur-md dark:border-gray-900 dark:bg-gray-600 dark:bg-opacity-10 dark:text-gray-300'>
-      <h2 className='mb-4 text-lg font-bold text-gray-700 dark:text-gray-200'>Search History</h2>
-      <ul className='space-y-4'>
-        {history.map((item, index) => (
-          <HistoryItem key={index} item={item} />
-        ))}
-      </ul>
+      <h2 className='text-md mb-4 font-bold text-gray-700 md:text-lg dark:text-gray-200'>Search History</h2>
+      <div className='max-h-80 overflow-y-auto'>
+        <ul className='space-y-4'>
+          {history.map((item, index) => (
+            <HistoryItem key={index} item={item} />
+          ))}
+        </ul>
+      </div>
     </div>
   )
 }
