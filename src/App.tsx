@@ -6,6 +6,7 @@ import WeatherDisplay from './components/WeatherDisplay'
 import SearchBar from './components/SearchBar'
 import SearchHistory from './components/SearchHistory'
 import { WeatherData } from './@types'
+import ThemeSwitcher from './components/ThemeSwitcher'
 
 const WEATHER_MOCK_DATA: WeatherData = {
   temperature: 30,
@@ -69,18 +70,19 @@ function App() {
   // );
   return (
     // <div className="min-h-screen flex items-center justify-center bg-purple-300">
-    <div className="min-h-screen w-screen bg-[url('./assets/bg-light.png')] bg-cover bg-center">
+    <div className="min-h-screen w-screen bg-[url('./assets/bg-light.png')] bg-cover bg-center dark:bg-[url('./assets/bg-dark.png')]">
       <div className='container mx-auto flex flex-col items-center space-y-20 px-4 pt-4'>
         <div className='w-full max-w-2xl'>
           <SearchBar onSearchSubmit={handleSearchSubmit} />
         </div>
-        <div className='relative w-full max-w-2xl rounded-3xl border border-white border-opacity-20 bg-white bg-opacity-10 p-8 shadow-2xl backdrop-blur-md'>
+        <div className='relative w-full max-w-2xl rounded-3xl border border-white border-opacity-20 bg-white bg-opacity-10 p-8 shadow-2xl backdrop-blur-md dark:border-gray-600 dark:bg-gray-800 dark:bg-opacity-40 dark:shadow-2xl'>
           {weatherData && <WeatherDisplay weatherData={weatherData} />}
           <div className='mt-7'>
             <SearchHistory history={history} />
           </div>
         </div>
       </div>
+      <ThemeSwitcher />
     </div>
   )
 }

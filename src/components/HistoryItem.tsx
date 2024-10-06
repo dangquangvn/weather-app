@@ -7,16 +7,16 @@ interface HistoryItemProps {
 
 const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
   return (
-    <li className='flex items-center justify-between rounded-xl bg-white bg-opacity-30 p-4 shadow-md'>
+    <li className='flex items-center justify-between rounded-xl bg-white bg-opacity-30 p-4 shadow-md dark:bg-gray-800 dark:bg-opacity-70 dark:text-gray-300'>
       {/* Left side: Location and Date */}
       <div className='flex flex-col'>
-        <span className='font-medium text-gray-800'>{item.location}</span>
-        <span className='text-sm text-gray-500'>{item.date}</span>
+        <span className='font-medium text-gray-800 dark:text-gray-300'>{item.location}</span>
+        <span className='text-sm text-gray-500 dark:text-gray-400'>{item.date}</span>
       </div>
 
       {/* Right side: Temperature and Actions */}
       <div className='flex items-center space-x-4'>
-        <span className='text-lg font-semibold text-gray-700'>{item.temperature}&deg;C</span>
+        <span className='text-lg font-semibold text-gray-700 dark:text-gray-100'>{item.temperature}&deg;C</span>
 
         <div className='flex space-x-2 text-gray-600'>
           <button

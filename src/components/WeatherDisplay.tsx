@@ -23,16 +23,18 @@ const WeatherDisplay: React.FC<WeatherDisplayProps> = ({ weatherData }) => {
       {/* <div className='relative mx-auto mb-4 flex max-w-md items-center justify-between rounded-3xl bg-purple-100 p-8 text-center shadow-md'> */}
       {/* Left Section with Temperature and Info */}
       <div className='weather__text flex flex-col'>
-        <p className='mb-2 font-semibold text-gray-700'>Today's Weather</p>
+        <p className='mb-2 font-semibold text-gray-700 dark:text-gray-300'>Today's Weather</p>
 
-        <p className='text-8xl font-bold leading-none text-purple-800'>{weatherData.temperature}&deg;</p>
+        <p className='text-8xl font-bold leading-none text-purple-800 dark:text-gray-300'>
+          {weatherData.temperature}&deg;
+        </p>
 
-        <p className='text-md mb-2 text-gray-700'>
+        <p className='text-md mb-2 text-gray-700 dark:text-gray-300'>
           <span>H: {weatherData.temperature + 3}&deg;</span> <span>L: {weatherData.temperature - 3}&deg;</span>
         </p>
 
-        <div className='weather_description flex w-full items-center justify-between text-lg text-gray-600'>
-          <div className='text-md font-semibold text-gray-600'>{weatherData.location}</div>
+        <div className='weather_description flex w-full items-center justify-between text-lg text-gray-600 dark:text-gray-300'>
+          <div className='text-md font-semibold text-gray-600 dark:text-gray-300'>{weatherData.location}</div>
           <span>{weatherData.date}</span>
           <span>Humidity: {weatherData.humidity}%</span>
           <span>{weatherData.weatherType}</span>

@@ -1,0 +1,33 @@
+import React, { useState, useEffect } from 'react'
+
+const ThemeSwitcher: React.FC = () => {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme')
+    if (storedTheme) {
+      setTheme(storedTheme as 'light' | 'dark')
+      document.documentElement.classList.toggle('dark', storedTheme === 'dark')
+    }
+  }, [])
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light'
+    setTheme(newTheme)
+    document.documentElement.classList.toggle('dark', newTheme === 'dark')
+
+    // Save the selected theme to localStorage
+    localStorage.setItem('theme', newTheme)
+  }
+
+  return (
+    <button
+      onClick={toggleTheme}
+      className='absolute bottom-4 right-4 h-12 w-12 rounded-full bg-gray-300 shadow-lg transition-colors duration-300 ease-in-out hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600'
+    >
+      {theme === 'light' ? '🌞' : '🌜'}
+    </button>
+  )
+}
+
+export default ThemeSwitcher
