@@ -1,16 +1,14 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
+import { toast } from 'react-toastify'
 import { WeatherData } from '../@types'
 import { fetchWeatherByCity } from '../api/weather.api'
-import { toast } from 'react-toastify'
 import { debounce } from '../utils/debounce'
 import localStorageUtil from '../utils/localStorage'
 
 interface SearchContextProps {
   weatherData: WeatherData | null
   history: WeatherData[]
-  //   error: string | null
   loading: boolean
-  //   handleSearchSubmit: (data: WeatherData) => void
   handleSearchSubmit: (city: string) => void
   deleteHistoryItem: (id: string) => void
 }
@@ -81,13 +79,12 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     }
   }, [])
 
-  return (
-    <SearchContext.Provider
-      value={{ weatherData, history, handleSearchSubmit: debouncedSearchSubmit, loading, deleteHistoryItem }}
-    >
-      {children}
-    </SearchContext.Provider>
+  const value = useMemo(
+    () => ({ weatherData, history, handleSearchSubmit: debouncedSearchSubmit, loading, deleteHistoryItem }),
+    [weatherData, history, loading]
   )
+
+  return <SearchContext.Provider value={value}>{children}</SearchContext.Provider>
 }
 
 export const useSearch = () => {

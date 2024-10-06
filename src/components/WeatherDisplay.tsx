@@ -1,11 +1,12 @@
-import sunImage from '../assets/sun.png'
 import React from 'react'
+import sunImage from '../assets/sun.png'
 import { useSearch } from '../contexts/SearchContext'
 
 const WeatherDisplay: React.FC = () => {
   const { weatherData } = useSearch()
 
   if (!weatherData) {
+    //TODO: Add error handling
     return <h1>Error</h1>
   }
 

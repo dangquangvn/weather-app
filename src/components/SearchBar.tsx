@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
-import { fetchWeatherByCity } from '../api/weather.api'
-import { WeatherData } from '../@types'
 import { useSearch } from '../contexts/SearchContext'
 
 const SearchBar: React.FC = () => {
   const [city, setCity] = useState('')
   const [inputFocused, setInputFocused] = useState(false)
-  const [country, setCountry] = useState('')
-  const [error, setError] = useState<string | null>(null)
 
   const { loading, handleSearchSubmit } = useSearch()
 

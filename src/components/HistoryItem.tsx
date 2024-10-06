@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import React from 'react'
 import { WeatherData } from '../@types'
 import { useSearch } from '../contexts/SearchContext'
@@ -9,7 +10,14 @@ interface HistoryItemProps {
 const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
   const { handleSearchSubmit, deleteHistoryItem } = useSearch()
   return (
-    <li className='flex items-center justify-between rounded-xl bg-white bg-opacity-30 p-4 shadow-md dark:bg-gray-800 dark:bg-opacity-70 dark:text-gray-300'>
+    <motion.li
+      key={item.id}
+      initial={{ opacity: 0, y: 25 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, x: 25, scale: 1.025 }}
+      layout
+      className='flex items-center justify-between rounded-xl bg-white bg-opacity-30 p-4 shadow-md dark:bg-gray-800 dark:bg-opacity-70 dark:text-gray-300'
+    >
       {/* Left side: Location and Date */}
       <div className='flex flex-col'>
         <span className='md:text-md text-sm font-medium text-gray-800 dark:text-gray-300'>{item.location}</span>
@@ -38,7 +46,7 @@ const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
           </button>
         </div>
       </div>
-    </li>
+    </motion.li>
   )
 }
 

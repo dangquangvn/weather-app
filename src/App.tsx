@@ -1,3 +1,4 @@
+import AOS from 'aos'
 import { useEffect } from 'react'
 import './App.css'
 import { LoadingSpinner } from './components/Loading'
@@ -6,7 +7,6 @@ import SearchHistory from './components/SearchHistory'
 import ThemeSwitcher from './components/ThemeSwitcher'
 import WeatherDisplay from './components/WeatherDisplay'
 import { useSearch } from './contexts/SearchContext'
-import AOS from 'aos'
 
 function App() {
   const { loading } = useSearch()
