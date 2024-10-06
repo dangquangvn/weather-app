@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import { MagnifyingGlassIcon as SearchIcon } from "@heroicons/react/24/outline";
-import { fetchWeatherByCity } from "../api/weather.api";
-import { WeatherData } from "../@types";
+import React, { useState } from 'react'
+import { fetchWeatherByCity } from '../api/weather.api'
+import { WeatherData } from '../@types'
 
 interface SearchBarProps {
-  onSearchSubmit: (data: WeatherData) => void;
+  onSearchSubmit: (data: WeatherData) => void
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearchSubmit }) => {
-  const [city, setCity] = useState("");
-  const [inputFocused, setInputFocused] = useState(false);
-  const [country, setCountry] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [city, setCity] = useState('')
+  const [inputFocused, setInputFocused] = useState(false)
+  const [country, setCountry] = useState('')
+  const [error, setError] = useState<string | null>(null)
 
   //   const handleSubmit = () => {
   //     const mockWeatherData = {
@@ -27,86 +26,43 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchSubmit }) => {
   const handleSubmit = async () => {
     try {
       //   const weatherData = await fetchWeatherByCity(city, country);
-      const weatherData = await fetchWeatherByCity(city);
+      const weatherData = await fetchWeatherByCity(city)
+      console.log('🚀TCL: - file: SearchBar.tsx:31 - weatherData:', weatherData)
       if (weatherData) {
-        onSearchSubmit(weatherData);
-        setError(null);
+        onSearchSubmit(weatherData)
+        setError(null)
       } else {
-        setError("City or country not found");
+        setError('City or country not found')
       }
     } catch (err) {
-      console.log("🚀TCL: - file: SearchBar.tsx:64 - err", err);
-      setError("Error fetching weather data");
+      console.log('🚀TCL: - file: SearchBar.tsx:64 - err', err)
+      setError('Error fetching weather data')
     }
-  };
-
-  //   return (
-  //     <div className="flex items-center justify-between mb-4">
-  //       <input
-  //         type="text"
-  //         placeholder="Enter city"
-  //         className="w-full px-4 py-2 border rounded-md shadow-md"
-  //         value={city}
-  //         onChange={(e) => setCity(e.target.value)}
-  //       />
-  //       <button
-  //         className="ml-4 px-4 py-2 bg-purple-600 text-white rounded-md shadow-md"
-  //         onClick={handleSubmit}
-  //       >
-  //         Search
-  //       </button>
-  //     </div>
-  //   );
-  // return (
-  //   // <div className="bg-purple-200 flex items-center justify-center h-screen">
-  //   <div className="relative w-full max-w-sm">
-  //     {/* Search Input */}
-  //     <input
-  //       type="text"
-  //       id="city-input"
-  //       value={city}
-  //       onFocus={() => setInputFocused(true)}
-  //       onBlur={() => setInputFocused(false)}
-  //       onChange={(e) => setCity(e.target.value)}
-  //       placeholder=" "
-  //       className={`w-full py-3 px-4 border rounded-lg outline-none transition-all duration-300 ease-in-out
-  //         ${inputFocused ? "border-blue-500" : "border-gray-300"}`}
-  //     />
-  //     <label
-  //       htmlFor="city-input"
-  //       className={`absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 transition-all duration-300 ease-in-out
-  //         ${inputFocused || city ? "text-blue-500 top-[-0.5rem] text-sm" : ""}`}
-  //     >
-  //       Country
-  //     </label>
-
-  //     {/* Search Icon */}
-  //     <span className="absolute right-4 top-3 cursor-pointer hover:animate-pulse">
-  //       <SearchIcon className="h-6 w-6 text-gray-500" />
-  //     </span>
-  //   </div>
-  //   // </div>
-  // );
+  }
 
   return (
-    <div className="flex items-center space-x-2">
+    <div className='flex w-full items-center justify-between space-x-2'>
       {/* Search Input */}
-      <div className="relative w-full max-w-sm">
+      <div className='relative mr-1 w-full flex-1'>
         <input
-          type="text"
-          id="city-input"
+          type='text'
+          id='city-input'
           value={city}
           onFocus={() => setInputFocused(true)}
           onBlur={() => setInputFocused(false)}
           onChange={(e) => setCity(e.target.value)}
-          placeholder=" "
-          className={`w-full py-3 px-4 border rounded-2xl outline-none transition-all duration-300 ease-in-out 
-            ${inputFocused ? "border-blue-500" : "border-gray-300"}`}
+          onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
+          placeholder=' '
+          className={`w-full rounded-2xl border border-transparent bg-white bg-opacity-20 px-4 py-3 text-black outline-none backdrop-blur-lg transition-all duration-300 ease-in-out focus:ring-2 focus:ring-gray-300 ${
+            inputFocused ? 'ring-2 ring-gray-500' : ''
+          }`}
         />
         <label
-          htmlFor="city-input"
-          className={`absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 transition-all duration-300 ease-in-out
-            ${inputFocused || city ? "text-blue-500 top-[-0.5rem] text-sm" : ""}`}
+          htmlFor='city-input'
+          className={`absolute left-4 top-1/2 -translate-y-1/2 transform text-gray-700 transition-all duration-300 ease-in-out ${
+            inputFocused || city ? 'left-4 top-2 text-sm text-gray-500' : ''
+          }`}
+          style={{ fontSize: inputFocused || city ? '10px' : 'initial' }}
         >
           Country
         </label>
@@ -114,13 +70,14 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchSubmit }) => {
 
       {/* Search Button with Icon */}
       <button
-        className="flex items-center justify-center w-12 h-12 rounded-2xl bg-purple-600 hover:bg-purple-700 transition-colors duration-300 focus:outline-none"
-        onClick={() => alert(`Searching for weather in: ${city}`)}
+        className='flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-600 transition duration-300 hover:border-purple-500 hover:bg-purple-700 focus:outline-none active:scale-75'
+        // onClick={() => alert(`Searching for weather in: ${city}`)}
+        onClick={handleSubmit}
       >
-        <span className="icon-[mdi--search] text-white text-2xl flex-shrink-0"></span>
+        <span className='icon-[mdi--search] flex-shrink-0 text-2xl text-white'></span>
       </button>
     </div>
-  );
-};
+  )
+}
 
-export default SearchBar;
+export default SearchBar

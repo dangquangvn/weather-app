@@ -1,35 +1,34 @@
-import axios from "axios";
-import { CONFIG } from "../config";
-import { WeatherData } from "../@types";
+import axios from 'axios'
+import { CONFIG } from '../config'
+import { WeatherData } from '../@types'
+import { formatDate } from '../utils/date'
 
-export const fetchWeatherByCity = async (
-  city: string
-): Promise<WeatherData | null> => {
+export const fetchWeatherByCity = async (city: string): Promise<WeatherData | null> => {
   try {
-    // const response = await axios.get(`${API_URL}?city=${city}`);
     const response = await axios.get(CONFIG.WEAHTER_API_URL, {
       params: {
         q: city,
         appid: CONFIG.WEATHER_API_KEY,
-        units: "metric",
-      },
-    });
+        units: 'metric'
+      }
+    })
 
-    console.log("🚀TCL: - file: weather.api.ts:30 - response:", response);
-    // const data = response.data[0];
-    const data = response.data;
+    const data = response.data
+
     if (data) {
       return {
-        temperature: data.temperature,
-        location: `${data.city}, ${data.country}`,
-        weatherType: data.weatherType,
-        humidity: data.humidity,
-        date: new Date(data.date).toLocaleString(),
-      };
+        temperature: Math.round(data.main.temp),
+        temperature_max: Math.round(data.main.temp_max),
+        temperature_min: Math.round(data.main.temp_min),
+        humidity: data.main.humidity,
+        location: `${data.name}, ${data.sys.country}`,
+        weatherType: data.weather[0].main,
+        date: formatDate()
+      }
     }
-    return null;
+    return null
   } catch (error) {
-    console.error("Error fetching weather data", error);
-    throw new Error("Failed to fetch weather data");
+    console.error('Error fetching weather data', error)
+    throw new Error('Failed to fetch weather data')
   }
-};
+}
