@@ -2,6 +2,12 @@
 
 A fully responsive, modern weather application built with **React**, **TypeScript**, **TailwindCSS**, **Framer Motion**, and **AOS.js** for smooth animations and transitions. The app uses the **OpenWeatherMap API** to fetch real-time weather data for different cities, and it includes features like search history, theme switching (dark/light mode), and a mobile-friendly design.
 
+## Demo
+
+You can view the live version of the app here:
+
+**[Live Demo](https://dangquangvn.github.io/weather-app/)**
+
 ## Table of Contents
 
 - [Features](#features)
