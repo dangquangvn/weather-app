@@ -1,8 +1,9 @@
-import React, { createContext, useCallback, useContext, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
 import { WeatherData } from '../@types'
 import { fetchWeatherByCity } from '../api/weather.api'
 import { toast } from 'react-toastify'
 import { debounce } from '../utils/debounce'
+import localStorageUtil from '../utils/localStorage'
 
 interface SearchContextProps {
   weatherData: WeatherData | null
@@ -11,9 +12,11 @@ interface SearchContextProps {
   loading: boolean
   //   handleSearchSubmit: (data: WeatherData) => void
   handleSearchSubmit: (city: string) => void
+  deleteHistoryItem: (id: string) => void
 }
 
 const defaultWeatherData: WeatherData = {
+  id: '123',
   temperature: 0,
   humidity: 0,
   location: '--',
@@ -39,6 +42,8 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       if (data) {
         setWeatherData(data)
         setHistory([data, ...history])
+        localStorageUtil.set('weather-history', [data, ...history])
+        localStorageUtil.set('weather-data', data)
       } else {
         toast('City not found. Please try again.', { position: 'top-right' })
       }
@@ -52,8 +57,34 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const debouncedSearchSubmit = useCallback(debounce(handleSearchSubmit, 200), [history])
 
+  const deleteHistoryItem = (id: string) => {
+    if (!location) return
+
+    setHistory(history.filter((item) => item.id !== id))
+    localStorageUtil.set(
+      'weather-history',
+      history.filter((item) => item.id !== id)
+    )
+  }
+
+  useEffect(() => {
+    const storedWeatherData = localStorageUtil.get('weather-data')
+    const storedHistory = localStorageUtil.get('weather-history')
+
+    if (storedHistory) {
+      setHistory(storedHistory)
+    }
+    if (storedWeatherData) {
+      setWeatherData(storedWeatherData)
+    } else {
+      handleSearchSubmit('Ha Noi')
+    }
+  }, [])
+
   return (
-    <SearchContext.Provider value={{ weatherData, history, handleSearchSubmit: debouncedSearchSubmit, loading }}>
+    <SearchContext.Provider
+      value={{ weatherData, history, handleSearchSubmit: debouncedSearchSubmit, loading, deleteHistoryItem }}
+    >
       {children}
     </SearchContext.Provider>
   )

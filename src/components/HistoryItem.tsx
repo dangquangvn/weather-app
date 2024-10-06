@@ -7,7 +7,7 @@ interface HistoryItemProps {
 }
 
 const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
-  const { handleSearchSubmit } = useSearch()
+  const { handleSearchSubmit, deleteHistoryItem } = useSearch()
   return (
     <li className='flex items-center justify-between rounded-xl bg-white bg-opacity-30 p-4 shadow-md dark:bg-gray-800 dark:bg-opacity-70 dark:text-gray-300'>
       {/* Left side: Location and Date */}
@@ -30,7 +30,7 @@ const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
 
           <button
             className='flex h-8 w-8 items-center justify-center rounded-full bg-white transition-colors duration-200 ease-in-out hover:border-red-200 hover:bg-red-300 active:scale-75'
-            onClick={() => console.log(`Delete ${item.location}`)}
+            onClick={() => deleteHistoryItem(item.id)}
           >
             <span className='icon-[mdi--trash] flex-shrink-0' />
           </button>

@@ -1,4 +1,5 @@
 export interface WeatherData {
+  id: string
   temperature: number
   temperature_max: number
   temperature_min: number

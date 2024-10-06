@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { v4 as uuid } from 'uuid'
 import { CONFIG } from '../config'
 import { WeatherData } from '../@types'
 import { formatDate } from '../utils/date'
@@ -17,6 +18,7 @@ export const fetchWeatherByCity = async (city: string): Promise<WeatherData | nu
 
     if (data) {
       return {
+        id: uuid(),
         temperature: Math.round(data.main.temp),
         temperature_max: Math.round(data.main.temp_max),
         temperature_min: Math.round(data.main.temp_min),
