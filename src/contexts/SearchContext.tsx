@@ -1,11 +1,13 @@
-import React, { createContext, useContext, useState } from 'react'
+import React, { createContext, useCallback, useContext, useState } from 'react'
 import { WeatherData } from '../@types'
 import { fetchWeatherByCity } from '../api/weather.api'
+import { toast } from 'react-toastify'
+import { debounce } from '../utils/debounce'
 
 interface SearchContextProps {
   weatherData: WeatherData | null
   history: WeatherData[]
-  error: string | null
+  //   error: string | null
   loading: boolean
   //   handleSearchSubmit: (data: WeatherData) => void
   handleSearchSubmit: (city: string) => void
@@ -27,12 +29,10 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [weatherData, setWeatherData] = useState<WeatherData>(defaultWeatherData)
   const [history, setHistory] = useState<WeatherData[]>([])
   const [loading, setLoading] = useState<boolean>(false)
-  const [error, setError] = useState<string | null>(null)
 
   const handleSearchSubmit = async (city: string) => {
-    if (!city) {
-      return null
-    }
+    if (!city) return
+
     setLoading(true)
     try {
       const data = await fetchWeatherByCity(city)
@@ -40,18 +40,20 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setWeatherData(data)
         setHistory([data, ...history])
       } else {
-        setError('City not found')
+        toast('City not found. Please try again.', { position: 'top-right' })
       }
       setLoading(false)
     } catch (error) {
       console.error('Error fetching weather data', error)
-      setError('City not found')
       setLoading(false)
+      toast('City not found. Please try again.', { position: 'top-right' })
     }
   }
 
+  const debouncedSearchSubmit = useCallback(debounce(handleSearchSubmit, 200), [history])
+
   return (
-    <SearchContext.Provider value={{ weatherData, history, handleSearchSubmit, error, loading }}>
+    <SearchContext.Provider value={{ weatherData, history, handleSearchSubmit: debouncedSearchSubmit, loading }}>
       {children}
     </SearchContext.Provider>
   )
