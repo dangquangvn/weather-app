@@ -4,6 +4,7 @@ import App from './App.tsx'
 import './index.css'
 import { SearchProvider } from './contexts/SearchContext.tsx'
 import 'react-toastify/dist/ReactToastify.css'
+import 'aos/dist/aos.css'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

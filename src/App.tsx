@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import './App.css'
 import { LoadingSpinner } from './components/Loading'
 import SearchBar from './components/SearchBar'
@@ -5,9 +6,20 @@ import SearchHistory from './components/SearchHistory'
 import ThemeSwitcher from './components/ThemeSwitcher'
 import WeatherDisplay from './components/WeatherDisplay'
 import { useSearch } from './contexts/SearchContext'
+import AOS from 'aos'
 
 function App() {
   const { loading } = useSearch()
+
+  useEffect(() => {
+    AOS.init({
+      duration: 1200,
+      easing: 'ease-in-out',
+      once: true,
+      delay: 100
+    })
+  }, [])
+
   return (
     <div className="relative min-h-screen w-screen bg-[url('./assets/bg-light.png')] bg-cover bg-center dark:bg-[url('./assets/bg-dark.png')]">
       <div className='container mx-auto flex min-h-screen flex-col items-center space-y-20 px-4 pt-4 md:space-y-28'>

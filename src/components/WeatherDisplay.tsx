@@ -10,7 +10,7 @@ const WeatherDisplay: React.FC = () => {
   }
 
   return (
-    <div className='weather__info relative'>
+    <div className='weather__info relative' data-aos='fade-up'>
       {/* Left Section with Temperature and Info */}
       <div className='weather__text flex flex-col'>
         <p className='mb-2 font-semibold text-gray-700 dark:text-gray-300'>Today's Weather</p>
@@ -36,7 +36,10 @@ const WeatherDisplay: React.FC = () => {
       </div>
 
       {/* Right Section with Sun/Cloud Image */}
-      <div className='weather__img absolute -right-[5%] -top-[55%] h-40 w-40 md:-top-[65%] md:h-72 md:w-72'>
+      <div
+        className='weather__img absolute -right-[5%] -top-[55%] h-40 w-40 md:-top-[65%] md:h-72 md:w-72'
+        data-aos='slide-left'
+      >
         <img src={sunImage} alt='Sun and Clouds' className='h-full w-full object-contain' />
       </div>
     </div>
