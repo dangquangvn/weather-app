@@ -1,11 +1,13 @@
 import React from 'react'
 import { WeatherData } from '../@types'
+import { useSearch } from '../contexts/SearchContext'
 
 interface HistoryItemProps {
   item: WeatherData
 }
 
 const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
+  const { handleSearchSubmit } = useSearch()
   return (
     <li className='flex items-center justify-between rounded-xl bg-white bg-opacity-30 p-4 shadow-md dark:bg-gray-800 dark:bg-opacity-70 dark:text-gray-300'>
       {/* Left side: Location and Date */}
@@ -21,7 +23,7 @@ const HistoryItem: React.FC<HistoryItemProps> = ({ item }) => {
         <div className='flex space-x-2 text-gray-600'>
           <button
             className='flex h-8 w-8 items-center justify-center rounded-full bg-white transition duration-200 ease-in-out hover:border-gray-200 hover:bg-gray-200 focus:outline-none active:scale-75'
-            onClick={() => console.log(`Search ${item.location}`)}
+            onClick={() => handleSearchSubmit(item.location)}
           >
             <span className='icon-[mdi--search] flex-shrink-0' />
           </button>

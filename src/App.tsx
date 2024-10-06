@@ -7,6 +7,7 @@ import SearchBar from './components/SearchBar'
 import SearchHistory from './components/SearchHistory'
 import { WeatherData } from './@types'
 import ThemeSwitcher from './components/ThemeSwitcher'
+import { useSearch } from './contexts/SearchContext'
 
 const WEATHER_MOCK_DATA: WeatherData = {
   temperature: 30,
@@ -49,36 +50,16 @@ const HISTORY_MOCK_DATA: WeatherData[] = [
 ]
 
 function App() {
-  const [weatherData, setWeatherData] = useState<WeatherData | null>(WEATHER_MOCK_DATA)
-  console.log('🚀TCL: - file: App.tsx:12 - weatherData:', weatherData)
-  const [history, setHistory] = useState<WeatherData[]>(HISTORY_MOCK_DATA)
-  console.log('🚀TCL: - file: App.tsx:24 - history:', history)
-
-  const handleSearchSubmit = (data: WeatherData) => {
-    setWeatherData(data)
-    setHistory([data, ...history])
-  }
-
-  // return (
-  //   <div className="min-h-screen bg-purple-200 p-6">
-  //     <div className="max-w-lg mx-auto bg-white rounded-xl shadow-lg p-8">
-  //       <SearchBar onSearchSubmit={handleSearchSubmit} />
-  //       {weatherData && <WeatherDisplay weatherData={weatherData} />}
-  //       <SearchHistory history={history} />
-  //     </div>
-  //   </div>
-  // );
   return (
-    // <div className="min-h-screen flex items-center justify-center bg-purple-300">
-    <div className="min-h-screen w-screen bg-[url('./assets/bg-light.png')] bg-cover bg-center dark:bg-[url('./assets/bg-dark.png')]">
-      <div className='container mx-auto flex flex-col items-center space-y-20 px-4 pt-4'>
+    <div className="relative min-h-screen w-screen bg-[url('./assets/bg-light.png')] bg-cover bg-center dark:bg-[url('./assets/bg-dark.png')]">
+      <div className='container mx-auto flex min-h-screen flex-col items-center space-y-20 px-4 pt-4'>
         <div className='w-full max-w-2xl'>
-          <SearchBar onSearchSubmit={handleSearchSubmit} />
+          <SearchBar />
         </div>
         <div className='relative w-full max-w-2xl rounded-3xl border border-white border-opacity-20 bg-white bg-opacity-10 p-8 shadow-2xl backdrop-blur-md dark:border-gray-600 dark:bg-gray-800 dark:bg-opacity-40 dark:shadow-2xl'>
-          {weatherData && <WeatherDisplay weatherData={weatherData} />}
+          <WeatherDisplay />
           <div className='mt-7'>
-            <SearchHistory history={history} />
+            <SearchHistory />
           </div>
         </div>
       </div>

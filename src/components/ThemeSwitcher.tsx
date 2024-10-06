@@ -23,7 +23,7 @@ const ThemeSwitcher: React.FC = () => {
   return (
     <button
       onClick={toggleTheme}
-      className='absolute bottom-4 right-4 h-12 w-12 rounded-full bg-gray-300 shadow-lg transition-colors duration-300 ease-in-out hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600'
+      className='fixed bottom-4 right-4 ml-auto h-12 w-12 rounded-full bg-gray-300 shadow-lg transition-colors duration-300 ease-in-out hover:bg-gray-400 dark:bg-gray-700 dark:hover:bg-gray-600'
     >
       {theme === 'light' ? '🌞' : '🌜'}
     </button>
