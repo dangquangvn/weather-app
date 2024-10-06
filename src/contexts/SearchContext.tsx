@@ -6,6 +6,7 @@ interface SearchContextProps {
   weatherData: WeatherData | null
   history: WeatherData[]
   error: string | null
+  loading: boolean
   //   handleSearchSubmit: (data: WeatherData) => void
   handleSearchSubmit: (city: string) => void
 }
@@ -25,9 +26,14 @@ const SearchContext = createContext<SearchContextProps | undefined>(undefined)
 export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [weatherData, setWeatherData] = useState<WeatherData>(defaultWeatherData)
   const [history, setHistory] = useState<WeatherData[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
   const [error, setError] = useState<string | null>(null)
 
   const handleSearchSubmit = async (city: string) => {
+    if (!city) {
+      return null
+    }
+    setLoading(true)
     try {
       const data = await fetchWeatherByCity(city)
       if (data) {
@@ -36,14 +42,16 @@ export const SearchProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       } else {
         setError('City not found')
       }
+      setLoading(false)
     } catch (error) {
       console.error('Error fetching weather data', error)
       setError('City not found')
+      setLoading(false)
     }
   }
 
   return (
-    <SearchContext.Provider value={{ weatherData, history, handleSearchSubmit, error }}>
+    <SearchContext.Provider value={{ weatherData, history, handleSearchSubmit, error, loading }}>
       {children}
     </SearchContext.Provider>
   )

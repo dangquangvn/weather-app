@@ -8,6 +8,7 @@ import SearchHistory from './components/SearchHistory'
 import { WeatherData } from './@types'
 import ThemeSwitcher from './components/ThemeSwitcher'
 import { useSearch } from './contexts/SearchContext'
+import { LoadingSpinner } from './components/Loading'
 
 const WEATHER_MOCK_DATA: WeatherData = {
   temperature: 30,
@@ -50,6 +51,7 @@ const HISTORY_MOCK_DATA: WeatherData[] = [
 ]
 
 function App() {
+  const { loading } = useSearch()
   return (
     <div className="relative min-h-screen w-screen bg-[url('./assets/bg-light.png')] bg-cover bg-center dark:bg-[url('./assets/bg-dark.png')]">
       <div className='container mx-auto flex min-h-screen flex-col items-center space-y-20 px-4 pt-4'>
@@ -61,6 +63,11 @@ function App() {
           <div className='mt-7'>
             <SearchHistory />
           </div>
+          {loading && (
+            <div className='absolute inset-0 flex items-center justify-center'>
+              <LoadingSpinner />
+            </div>
+          )}
         </div>
       </div>
       <ThemeSwitcher />
